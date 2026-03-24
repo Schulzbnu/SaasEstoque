@@ -188,6 +188,168 @@ import { input } from '@/lib/design-tokens'
 
 ---
 
+## 🔐 Padrões de Autenticação
+
+### Layout de Autenticação (Split Screen)
+```tsx
+<div className="min-h-screen flex">
+  {/* Left Panel - Branding */}
+  <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary to-primary/80 p-12 flex-col justify-between">
+    <div className="text-white">
+      <h1 className="text-3xl font-bold">Seu Logo</h1>
+    </div>
+    <div>
+      <h2 className="text-4xl font-bold text-white mb-4">
+        Transforme seu negócio
+      </h2>
+      <p className="text-xl text-white/80">
+        Controle completo de estoque e fluxo de caixa em um só lugar.
+      </p>
+    </div>
+    <div className="text-white/60 text-sm">
+      © 2026 Sua Empresa. Todos os direitos reservados.
+    </div>
+  </div>
+
+  {/* Right Panel - Form */}
+  <div className="flex-1 flex items-center justify-center p-8 bg-background">
+    <div className="w-full max-w-md">
+      {/* Form content here */}
+    </div>
+  </div>
+</div>
+```
+
+### Container de Form de Autenticação
+```tsx
+<div className="w-full max-w-md">
+  {/* Header */}
+  <div className="mb-8">
+    <h1 className="text-3xl font-bold text-foreground mb-2">
+      Título
+    </h1>
+    <p className="text-base text-muted-foreground">
+      Subtítulo descritivo
+    </p>
+  </div>
+
+  {/* Form */}
+  <form className="space-y-5">
+    {/* Form fields */}
+  </form>
+
+  {/* Footer link */}
+  <p className="text-center text-sm text-muted-foreground mt-6">
+    Texto de contexto{' '}
+    <Link href="/other-page" className="text-primary font-medium hover:underline">
+      Link
+    </Link>
+  </p>
+</div>
+```
+
+### Social Login Buttons
+```tsx
+<div className="space-y-3">
+  <button
+    type="button"
+    className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-input rounded-md bg-background hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+  >
+    <img src="/google.svg" alt="Google" className="w-5 h-5" />
+    <span className="text-sm font-medium text-foreground">
+      Continuar com Google
+    </span>
+  </button>
+</div>
+```
+
+### Divider Visual
+```tsx
+<div className="relative my-6">
+  <div className="absolute inset-0 flex items-center">
+    <div className="w-full border-t border-border" />
+  </div>
+  <div className="relative flex justify-center text-sm">
+    <span className="px-2 bg-background text-muted-foreground">
+      ou continue com
+    </span>
+  </div>
+</div>
+```
+
+### Input de Autenticação
+```tsx
+<div>
+  <label className="block text-sm font-medium text-foreground mb-1.5">
+    Email
+  </label>
+  <input
+    type="email"
+    placeholder="seu@email.com"
+    className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50"
+  />
+</div>
+```
+
+### Checkbox de Autenticação
+```tsx
+<div className="flex items-center">
+  <input
+    type="checkbox"
+    id="remember"
+    className="w-4 h-4 text-primary border-input rounded focus:ring-2 focus:ring-primary focus:ring-offset-2"
+  />
+  <label htmlFor="remember" className="ml-2 text-sm text-foreground">
+    Lembrar-me
+  </label>
+</div>
+```
+
+### Link Recuperar Senha
+```tsx
+<div className="flex items-center justify-between mb-1.5">
+  <label className="block text-sm font-medium text-foreground">
+    Senha
+  </label>
+  <Link
+    href="/forgot-password"
+    className="text-sm text-primary hover:underline font-medium"
+  >
+    Esqueceu sua senha?
+  </Link>
+</div>
+```
+
+### Botão Principal de Autenticação
+```tsx
+<button
+  type="submit"
+  disabled={isLoading}
+  className="w-full flex items-center justify-center px-4 py-2.5 bg-primary text-primary-foreground rounded-md font-medium transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {isLoading ? (
+    <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+  ) : (
+    'Entrar'
+  )}
+</button>
+```
+
+### Alert em Autenticação
+```tsx
+{error && (
+  <div className="p-4 rounded-lg bg-destructive/10 text-destructive border border-destructive/20 flex items-start gap-3">
+    <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+    <div className="flex-1">
+      <p className="text-sm font-medium">Erro ao fazer login</p>
+      <p className="text-sm mt-0.5">{error}</p>
+    </div>
+  </div>
+)}
+```
+
+---
+
 ## ♿ Acessibilidade
 
 ### Focus States (OBRIGATÓRIO)
