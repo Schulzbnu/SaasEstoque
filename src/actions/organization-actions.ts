@@ -71,10 +71,13 @@ export async function getCurrentOrganization(): Promise<GetOrganizationResult> {
   try {
     const result = await getUserOrganization()
 
-    if (!result.success) {
+    if (!result.success || !result.data) {
       return {
         success: false,
-        error: result.error,
+        error: result.error || {
+          type: 'unknown_error',
+          message: 'Ocorreu um erro inesperado',
+        },
       }
     }
 

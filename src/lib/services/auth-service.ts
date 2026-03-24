@@ -41,6 +41,37 @@ export async function login(email: string, password: string) {
 export async function signUp(email: string, password: string, fullName: string) {
   const supabase = await getSupabaseServerClient()
 
+  // Check if user already exists BEFORE attempting signup
+  // This prevents duplicate email issues
+  const { data: existingUser, error: checkError } = await supabase
+    .from('profiles')
+    .select('id')
+    .eq('email', email)
+    .maybeSingle()
+
+  if (checkError && checkError.code !== 'PGRST116') {
+    // PGRST116 is "not found" which is what we want
+    return {
+      success: false,
+      error: {
+        type: 'unknown_error',
+        message: 'Erro ao verificar email. Tente novamente.',
+      },
+    }
+  }
+
+  // If user exists, return error
+  if (existingUser) {
+    return {
+      success: false,
+      error: {
+        type: 'email_already_exists',
+        message: 'Este email já está cadastrado. Faça login ou recupere sua senha.',
+      },
+    }
+  }
+
+  // Attempt sign up
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -56,6 +87,18 @@ export async function signUp(email: string, password: string, fullName: string) 
     return {
       success: false,
       error: handleAuthError(error),
+    }
+  }
+
+  // Check if user was actually created
+  // Supabase may return success without creating user if email already exists
+  if (!data.user) {
+    return {
+      success: false,
+      error: {
+        type: 'email_already_exists',
+        message: 'Este email já está cadastrado. Faça login ou recupere sua senha.',
+      },
     }
   }
 

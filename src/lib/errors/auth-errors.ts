@@ -40,11 +40,19 @@ const ERROR_MESSAGES: Record<string, { type: AuthErrorType; message: string }> =
   // Email already exists
   'User already registered': {
     type: 'email_already_exists',
-    message: 'Este email já está cadastrado.',
+    message: 'Este email já está cadastrado. Faça login ou recupere sua senha.',
   },
   'duplicate key': {
     type: 'email_already_exists',
-    message: 'Este email já está cadastrado.',
+    message: 'Este email já está cadastrado. Faça login ou recupere sua senha.',
+  },
+  'A user with this email address has already been registered': {
+    type: 'email_already_exists',
+    message: 'Este email já está cadastrado. Faça login ou recupere sua senha.',
+  },
+  'email already registered': {
+    type: 'email_already_exists',
+    message: 'Este email já está cadastrado. Faça login ou recupere sua senha.',
   },
 
   // Weak password
@@ -85,6 +93,16 @@ const ERROR_MESSAGES: Record<string, { type: AuthErrorType; message: string }> =
   'Signups not allowed': {
     type: 'unknown_error',
     message: 'O cadastro está temporariamente desabilitado.',
+  },
+
+  // Database constraint violation
+  'duplicate': {
+    type: 'email_already_exists',
+    message: 'Este email já está cadastrado. Faça login ou recupere sua senha.',
+  },
+  'unique constraint': {
+    type: 'email_already_exists',
+    message: 'Este email já está cadastrado. Faça login ou recupere sua senha.',
   },
 }
 
