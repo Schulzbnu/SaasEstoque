@@ -93,7 +93,23 @@ export async function getUserOrganization() {
   }
 
   const membership = memberships[0]
-  const organization = membership.organizations as Organization
+
+  // Handle both array and single object from Supabase join
+  const orgData = Array.isArray(membership.organizations)
+    ? membership.organizations[0]
+    : membership.organizations
+
+  if (!orgData) {
+    return {
+      success: false,
+      error: {
+        type: 'organization_not_found',
+        message: 'Organização não encontrada',
+      },
+    }
+  }
+
+  const organization = orgData as Organization
 
   return {
     success: true,
@@ -212,10 +228,17 @@ export async function getUserOrganizations() {
     }
   }
 
-  const organizations = memberships?.map((membership: any) => ({
-    ...membership.organizations,
-    role: membership.role,
-  })) || []
+  const organizations = memberships?.map((membership: any) => {
+    // Handle both array and single object from Supabase join
+    const orgData = Array.isArray(membership.organizations)
+      ? membership.organizations[0]
+      : membership.organizations
+
+    return {
+      ...orgData,
+      role: membership.role,
+    }
+  }) || []
 
   return {
     success: true,
