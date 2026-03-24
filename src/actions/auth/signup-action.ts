@@ -47,6 +47,6 @@ export async function signUp(formData: SignUpInput) {
 
   return {
     success: true,
-    requiresConfirmation: result.data.requiresConfirmation,
+    requiresConfirmation: result.data?.requiresConfirmation ?? false,
   }
 }
