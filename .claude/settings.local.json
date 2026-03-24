@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Skill(update-config)"
+    ]
+  },
+  "extraKnownMarketplaces": {
+    "estoque-agents": {
+      "source": {
+        "source": "directory",
+        "path": ".claude/agents"
+      }
+    },
+    "estoque-skills": {
+      "source": {
+        "source": "directory",
+        "path": ".claude/skills"
+      }
+    }
+  }
+}
